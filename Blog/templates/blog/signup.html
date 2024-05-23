@@ -1,0 +1,93 @@
+{% extends "layout.html" %}
+{% load static %}
+
+{% block title %}
+Signin
+{% endblock title %}
+
+{% block links%}
+<link rel="stylesheet" href="{% static 'blog/signup.css'%}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Acme&family=Amita&family=Comfortaa:wght@700&family=Cookie&family=Josefin+Sans&family=Marck+Script&family=Niramit&family=Quintessential&family=Secular+One&family=Shadows+Into+Light&family=Simonetta:ital,wght@0,400;0,900;1,400;1,900&family=Sofia+Sans+Condensed:ital@0;1&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=David+Libre:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@100..900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@100..900&family=Puritan:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Shanti&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+<style>
+    body{
+        background: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)),url("{% static 'blog/signup.jpg'%}");
+        background-size: cover;
+        background-repeat: no-repeat;
+
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-6 offset-3">
+            <div class="row">
+              <div class="col-10 offset-1 text-center" id="c2">
+                <div class="row">
+                    <div class="col-12">
+                        <h2 id="title">Experience. Live. Write.</h2>
+                    </div>
+                    <div class="col-12 my-3">
+                        <h5 id="subtitle">Don't have an Account?</h5>
+                    </div>
+                    <form action="/blog/signup" method="POST">
+                    {% csrf_token %}
+                    <div class="row">
+                            <div class="col-6">
+                                {{form.first_name}}
+                            </div>
+                            <div class="col-6">
+                                {{form.last_name}}
+                            </div>
+                    </div>
+                    <div class="col-12 my-4">
+                        {{form.email}}
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            {{form.date_of_birth}}
+                        </div>
+                        <div class="col-6">
+                            {{form.phone_number}}
+                        </div>
+                </div>
+                    <div class="col-12 my-4">
+                        {{form.username}}
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            {{form.password1}}
+                    </div>
+                    <div class="col-6">
+                    {{form.password2}}
+                    </div>
+                    {{form.error_message}}
+                </div>
+                    <div class="col-12 my-4">
+                        <button type="submit" id="btn" class="btn btn-success">SIGN IN!</button> 
+                    </div>
+                    <div class="col-12 align-items-center my-4" id="lg">
+                            <a href="{%url 'login'%}">Already a Member?</a>
+                        </div>
+                    </div>
+                  </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock content %}
+

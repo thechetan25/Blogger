@@ -1,0 +1,173 @@
+{% extends "layout.html" %}
+{% load static %}
+
+{% block title %}
+Profile Settings
+{% endblock title %}
+
+{% block links%}
+<script src="{% static 'blog/settings.js' %}"></script>
+<link rel="stylesheet" href="{% static 'blog/settings.css'%}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Acme&family=Amita&family=Comfortaa:wght@700&family=Cookie&family=Josefin+Sans&family=Marck+Script&family=Niramit&family=Quintessential&family=Secular+One&family=Shadows+Into+Light&family=Simonetta:ital,wght@0,400;0,900;1,400;1,900&family=Sofia+Sans+Condensed:ital@0;1&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=David+Libre:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@100..900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@100..900&family=Puritan:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Shanti&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Madimi+One&display=swap" rel="stylesheet">
+{% endblock %}
+
+
+{% block content %}
+<nav class="navbar navbar-expand-lg fixed-top">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">bloG<div class="mirror-text">G</div>er</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="bi bi-arrow-down-square-fill" id="bi"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0" id="ul">
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="{% url 'home'%}" id="nv">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'create-blog' %}" id="nv">Post</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'my-blogs' %}" id="nv">My Posts</a>
+          </li>
+        </ul>
+        <div class="btn-group dropstart">
+            <button id="prof" class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="fa-solid fa-user-graduate"></i>
+            </button>
+            <ul class="dropdown-menu">
+              <li class="dropdown-item">{{User.username}}</li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="{% url 'profile' str=User.username %}">Account</a></li>
+              <li><form action="/blog/logout" method="POST">
+                {% csrf_token %}
+                <button type="submit" class="dropdown-item">logout</button>
+            </form></li>
+            </ul>
+          </div>
+      </div>
+    </div>
+  </nav>
+  <div class="container-fluid" id="container">
+    <div class="row">
+        <div class="col-8 offset-2" id="shd">
+           <h2><strong> <i class="bi bi-gear"></i> Account Settings </strong></h2>
+        </div>
+        <div class="col-8 offset-2">
+            <form class="multi-step-form" action="{% url 'settings' %}" method="POST" enctype="multipart/form-data">
+              {% csrf_token %}
+                <div class="progress">
+                    <div class="progress-bar progress-bar bg-success"  role="progressbar" aria-label="Example with label" style="width: 25%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">25%</div>
+                </div>
+                <div class="form">
+                    <div class="step step-1">
+                      <div class="coll-12">
+                        <h3><strong>User Info</strong></h3>
+                      </div>
+                        {% for field in user %}
+                        <div class="row">
+                            <div class="col-12" id="field">
+                                {{ field.label }}
+                                {{field.error_message}}
+                                {{ field }}
+                            </div>
+                        </div>
+                        {% endfor %}
+                        <div class="d-flex justify-content-between"> 
+                           <a href="{% url 'profile' str=User.username %}"><button type="button" class="btn btn-outline-secondary"><i class="bi bi-arrow-left-circle-fill"></i> Back</button></a>
+                          <button type="button" class="btn btn-outline-primary next align-self-end">Next <i class="bi bi-arrow-right-circle-fill"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="step step-2">
+                        <div class="coll-12">
+                          <h3><strong>User Info</strong></h3>
+                        </div>
+                        {% for field in first_half_detail %}
+                        <div class="row">
+                          <div class="col-12" id="field">
+                            {{ field.label }}
+                            {{field.error_message}}
+                            {% if field.name == 'p_img' %}
+                            {% if field.value %}
+                                &nbsp;&nbsp;<img src="{{det.p_img.url}}" width="50px" height="50px"><br>
+                            {% else %}
+                                <p>No image uploaded</p>
+                            {% endif %}
+                        {% elif field.name == 'c_img' %}
+                            {% if field.value %}
+                                &nbsp;&nbsp;<img src="{{det.c_img.url}}" width="50px" height="50px"><br>
+                            {% else %}
+                                <p>No image uploaded</p>
+                            {% endif %}
+                        {% endif %}
+                            {{ field }}
+                        </div>
+                        </div>
+                        {% endfor %}
+                        <div class="d-flex justify-content-between"> 
+                        <button type="button" class="btn btn-outline-secondary prev"><i class="bi bi-arrow-left-circle-fill"></i> Back</button>
+                        <button type="button" class="btn btn-outline-primary next align-self-end">Next <i class="bi bi-arrow-right-circle-fill"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="step step-3">
+                      <div class="coll-12">
+                        <h3><strong>Social Media </strong></h3>
+                      </div>
+                        {% for field in second_half_detail %}
+                        <div class="row">
+                            <div class="col-12" id="field">
+                                {{ field.label }}
+                                {{field.error_message}}
+                                {{ field }}
+                            </div>
+                        </div>
+                        {% endfor %}
+                        <div class="d-flex justify-content-between"> 
+                            <button type="button" class="btn btn-outline-secondary prev"><i class="bi bi-arrow-left-circle-fill"></i> Back</button>
+                            <button type="button" class="btn btn-outline-primary next align-self-end">Next <i class="bi bi-arrow-right-circle-fill"></i></button>
+                        </div>
+                      </form>
+                    </div>
+
+                    <div class="step step-4">
+                      <div class="coll-12">
+                        <h3><strong>Reset Password </strong></h3>
+                      </div>
+                        <div class="row">
+                            <div class="col-12" id="field">
+                                <p><i class="bi bi-key-fill"></i> Via Old Password<p>
+                                <form method="post" action="{% url 'passet' %}">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-warning" name="view_type" value="change">Take me There!</button>
+                                </form>
+                            </div>
+                            <div class="col-12" id="field">
+                              <p><i class="bi bi-envelope"></i> Via Email<p>
+                              <form method="post" action="{% url 'passet' %}">
+                                  {% csrf_token %}
+                                  <button type="submit"  class="btn btn-warning" name="view_type" value="reset">Take me There!</button>
+                               </form>
+                          </div>
+                        </div>
+                        <div class="d-flex justify-content-between"> 
+                            <button type="button" class="btn btn-outline-secondary prev"><i class="bi bi-arrow-left-circle-fill"></i> Back</button>
+                            <button type="submit" class="btn btn-outline-success">Save!</button>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

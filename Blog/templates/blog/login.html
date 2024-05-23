@@ -1,0 +1,79 @@
+{% extends "layout.html" %}
+{% load static %}
+
+{% block title %}
+Login
+{% endblock title %}
+
+{% block links%}
+<link rel="stylesheet" href="{% static 'blog/login.css'%}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Acme&family=Amita&family=Comfortaa:wght@700&family=Cookie&family=Josefin+Sans&family=Marck+Script&family=Niramit&family=Quintessential&family=Secular+One&family=Shadows+Into+Light&family=Simonetta:ital,wght@0,400;0,900;1,400;1,900&family=Sofia+Sans+Condensed:ital@0;1&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=David+Libre:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@100..900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@100..900&family=Puritan:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Shanti&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+<style>
+    body{
+        background: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)),url("{% static 'blog/change.jpg'%}");
+        background-size: cover;
+        background-repeat: no-repeat;
+
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row mx-5">
+        <div class="col-6 offset-3">
+            <div class="row">
+              <div class="col-10 offset-1 text-center" id="c2">
+                <div class="row">
+                    <div class="col-12 my-2">
+                        <h2 id="title">Experience. Live. Write.</h2>
+                    </div>
+                    <div class="col-12">
+                        <h5 id="subtitle">Have an Account?</h5>
+                    </div>
+                    <form action="/blog/login" method="POST">
+                    {% csrf_token %}
+                    <div class="col-12 my-4">
+                        {{form.username}}
+                    </div>
+                    <div class="col-12 my-4">
+                    {{form.password}}
+                    </div>
+                    <div class="col-12 my-4">
+                        <button type="submit" id="btn" class="btn btn-success">LOG IN!</button> 
+                    </div>
+                    </form>
+                    <div class="col-12 align-items-center my-4" id="lg">
+                        <div class="d-flex justify-content-between"> 
+                            <a href="{%url 'signup'%}">Not a Member?</a>
+                            <a href="{% url 'forgot'%}">Forgot Password?</a>
+                        </div>
+                    </div>
+                    {% if error_message %}
+                    <div class="col-12">
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert" id="alertBox">
+                            {{error_message}}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    </div>
+                    {% endif %}
+                    </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock content %}
+

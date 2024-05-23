@@ -1,0 +1,68 @@
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.form-control{
+    margin-bottom: 5px;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+#c2{
+    border-radius: 20px !important; 
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    padding-bottom: 10px ;
+    overflow: hidden; /* Ensure shadows aren't cut off */
+}
+
+#title{
+    font-family: "Simonetta", serif;
+    font-weight: bold;
+    font-size: 40px;
+}
+
+#cont{
+    font-family: "Simonetta", serif;
+    font-size: 22px;
+    padding-top: 30px;
+    color: rgb(157, 151, 151) !important;
+}
+
+.btn{
+    width: 100%;
+    background-color: #008a78 !important;
+    font-weight: 500 !important;
+    transition: width 0.3s ease !important;
+    color: white !important;
+}
+
+.btn:hover{
+    background-color: #005f52 !important;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+#lg a{
+    text-decoration: none !important;
+    color: black !important;
+}
+#lg{
+    display: flex;
+    justify-content: center;
+}
+#im{
+    padding-bottom: 27px !important;
+}
+
